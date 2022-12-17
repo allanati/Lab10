@@ -60,6 +60,13 @@ class Lecturer
 			m_id = id;
 		};
 
+		~Lecturer() {
+			for (int i = 0; i < m_students.size(); i++) {
+				m_students[i] = 0;
+			}
+			std::cout << "Destructor works!" << std::endl;
+		}
+
 		void addStud(Student* stud)
 		{
 			m_students.push_back(stud);
