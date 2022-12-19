@@ -59,14 +59,6 @@ class Lecturer
 			m_surname = surname;
 			m_id = id;
 		};
-
-		~Lecturer() {
-			for (int i = 0; i < m_students.size(); i++) {
-				m_students[i] = 0;
-			}
-			std::cout << "Destructor works!" << std::endl;
-		}
-
 		void addStud(Student* stud)
 		{
 			m_students.push_back(stud);
@@ -86,18 +78,19 @@ class Lecturer
 			{
 				if (x == m_SpisStud[i])
 				{
-					std::cout << "Come in, you're right on time." << std::endl;
+					std::cout << "You're my student, come in." << std::endl;
 					return;
 				}
 			}
-			std::cout << "You're not my student, go away." << std::endl;
+			std::cout << "You're not my student, wrong class." << std::endl;
 		}
 };
 
 int main()
 {
-	Student stud[n];	// n - number of students
-	for (int i = 0; i < n; i++) {	
+	Lecturer *lec1 = new Lecturer("Hudenko", 101);
+	Student *stud = new Student[n];
+	for (int i = 0; i < n; i++) {
 		std::string name, surname;
 		int ID;
 		std::cin >> name >> surname >> ID;
@@ -105,9 +98,13 @@ int main()
 		stud[i].SetSurname(surname);
 		stud[i].SetID(ID);
 	}
-	Lecturer lec1("Hudenko", 101);
-	for (int i = 0; i < n; i++) 
-		lec1.addStud(&stud[i]);
-	lec1.ShowStudID();
-	lec1.IsItYourClass(10);
+	for (int i = 0; i < n; i++)
+		lec1[0].addStud(&stud[i]);
+	lec1[0].ShowStudID();
+	int k;
+	std::cout << "Enter student's id: ";
+	std::cin >> k;
+	lec1[0].IsItYourClass(k);
+	delete lec1;
+	delete [] stud;
 }
